@@ -1,17 +1,20 @@
-let obj = {
-    name: 'Dinosaur',
-    age: 23
-}
-
-obj[Symbol.iterator] = function () {
-    let keys = Object.keys(this);
-    let index = 0;
-    return {
-        next: () => {
-            return { value: this[keys[index++]], done: index > keys.length };
-        }
+var num = 1;
+var myObject = {
+    num: 2,
+    add: function() {
+        this.num = 3;
+        (function() {
+            console.log(this.num);
+            this.num = 4;
+        })();
+        console.log(this.num);
+    },
+    sub: function() {
+        console.log(this.num)
     }
 }
-for (let value of obj) {
-    console.log(value) // Dinosaur 23
-}
+myObject.add();
+console.log(myObject.num);
+console.log(num);
+var sub = myObject.sub;
+sub();
